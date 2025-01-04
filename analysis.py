@@ -48,6 +48,14 @@ transition_model[2, :, :] = np.array([
     [0, 0, 0, 1]           # From state 3 to state 3 (restart)
 ])
 
+# Check that all transition probabilities sum to 1
+for a in range(transition_model.shape[0]):
+    for s in range(transition_model.shape[1]):
+        row_sum = np.sum(transition_model[a, s, :])
+        if not np.isclose(row_sum, 1.0):
+            print(f"Warning: transition probabilities for action {a}, state {s} sum to {row_sum:.3f} (should be 1.0).")
+
+
 # Defining the Reward Model
 # Dimensions: (number of actions, number of states, number of next states)
 reward_model = np.zeros((3, 4, 4))
